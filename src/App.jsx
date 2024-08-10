@@ -8,9 +8,9 @@ function App() {
     fetchCharacters()
   }, []);
 
-  const fetchCharacters = async () => {
+  const fetchCharacters = async (page) => {
     const apiUrl = "https://narutodb.xyz/api/character";
-    const result = await axios.get(apiUrl);
+    const result = await axios.get(apiUrl, { params: { page: page } });
     setCharacters(result.data.characters);
   }
   return (
@@ -31,12 +31,17 @@ function App() {
                   <h3 className="card-title">{character.name}</h3>
                   <p className="card-description">{character.debut?.appearsIn ?? "unknown"}</p>
                   <div className="card-footer">
-                    <span className="affiliation">{character.personal?.affiliation ?? "unknown" }</span>
+                    <span className="affiliation">{character.personal?.affiliation ?? "unknown"}</span>
                   </div>
                 </div>
               </div>
             )
           })}
+        </div>
+        <div className="pager">
+          <button className="prev">Previous</button>
+          <span className="page-number">1</span>
+          <button className="next">Next</button>
         </div>
       </main>
     </div>
