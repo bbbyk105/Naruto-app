@@ -5,24 +5,28 @@
     align-items: center;
     height: 100vh;
   
-  
 }
 
 .header {
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+  z-index: 1000;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding-top: 16px;
   padding-bottom: 16px;
-  background-color: #bce2e8;
+  background-color: rgba(0, 0, 0, 1);
 }
 
 .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
+  margin: 0 auto;
 }
 
 .logo {
@@ -32,7 +36,7 @@
 }
 
 main {
-  margin-top: 16px;
+  margin-top: 215px; 
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
