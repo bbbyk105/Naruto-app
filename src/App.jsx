@@ -4,17 +4,35 @@ import axios from "axios";
 
 function App() {
   const [characters, setCharacters] = useState([]);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
     fetchCharacters()
   }, []);
 
   const fetchCharacters = async (page) => {
     const apiUrl = "https://narutodb.xyz/api/character";
+    setIsLoading(true);
     const result = await axios.get(apiUrl, { params: { page: page } });
     setCharacters(result.data.characters);
+    setIsLoading(false);
+  };
+
+  const handleNext = async () =>{
+    const nextPage = page + 1
+    await fetchCharacters(nextPage);
+    setPage(nextPage);
+  }
+
+  const handlePrev = async () =>{
+    const prevPage = page - 1
+    await fetchCharacters(prevPage);
+    setPage(prevPage);
   }
   return (
     <div className="container">
+      {isLoading ? 
+      (<div class="loader"></div>) : (
       <main>
         <div className="cards-container">
           {characters.map((character) => {
@@ -39,11 +57,12 @@ function App() {
           })}
         </div>
         <div className="pager">
-          <button className="prev">Previous</button>
-          <span className="page-number">1</span>
-          <button className="next">Next</button>
+          <button className="prev" onClick={handlePrev}>Previous</button>
+          <span className="page-number">{page}</span>
+          <button className="next" onClick={handleNext}>Next</button>
         </div>
       </main>
+      )}
     </div>
   );
 }
